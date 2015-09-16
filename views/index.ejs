@@ -1,0 +1,43 @@
+<html>
+<head>
+ <title></title>
+</head>
+<body>
+ <h3>Add a User!</h3>
+ <form action='/result' method='post'>
+ 	<table>
+ 		<tr>
+ 			<td>Name:</td>
+ 			<td><input type='text' name='name'></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Favorite Language:</td>
+ 			<td>
+ 				<select name="language">
+ 					<option>Node</option>
+ 					<option>Ruby</option>
+ 					<option>Python</option>
+	 			</select>
+			</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Location:</td>
+ 			<td>
+ 				<select name="location">
+ 					<option>Silicon Valley</option>
+ 					<option>Seattle</option>
+ 					<option>Los Angeles</option>
+	 			</select>
+			</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Description:</td>
+ 			<td><textarea name="description"></textarea></td>
+ 		</tr>
+ 	</table>
+   
+   
+  <input type='submit' value='Submit'>
+ </form>
+</body>
+</html>
