@@ -14,12 +14,21 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res) {
  res.render("index");
 })
-// post route for adding a user
-app.post('/result', function(req, res) {
- console.log("POST DATA", req.body);
- res.render("show", {infos: req.body});
-})
+
 // tell the express app to listen on port 8000
-app.listen(8000, function() {
+var server = app.listen(8000, function() {
  console.log("listening on port 8000");
-})
+});
+var io = require("socket.io").listen(server);
+io.sockets.on('connection', function (socket) {
+  console.log("WE ARE USING SOCKETS!");
+  console.log(socket.id);
+  //all the socket code goes in here!
+	socket.on("update_info", function(data)
+	{
+		socket.emit("sent_back", {response: data});
+		random_num = Math.floor(Math.random()*1000 + 1);
+		console.log(random_num);
+		socket.emit("random", {response: random_num});
+	});
+});

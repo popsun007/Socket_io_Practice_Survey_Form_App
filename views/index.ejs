@@ -1,19 +1,48 @@
 <html>
 <head>
  <title></title>
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+ <script type ="text/javascript">
+ 	$(document).ready(function()
+ 	{
+ 		var socket = io.connect();
+ 		$("#survey_form").submit(function(e)
+ 		{
+ 			e.preventDefault();
+ 			socket.emit("update_info", 
+ 			{
+ 				name: $("#name").val(),
+ 				language: $("#lang").val(),
+ 				location: $("#location").val(),
+ 				description: $("#description").val()
+ 			});
+ 		});
+ 		socket.on("sent_back", function(data)
+ 		{
+ 			$(".show").html("<h4>" + JSON.parse(JSON.stringify(data.response)).name + "'s favorite language is " + JSON.parse(JSON.stringify(data.response)).language + " and study it at " + JSON.parse(JSON.stringify(data.response)).location + "! Memo: " +JSON.parse(JSON.stringify(data.response)).description +  "</h4>");
+ 		})
+ 		socket.on("random", function(data)
+ 		{
+ 			$(".num").html("<h4>Lucky number is " + data.response + "</h4>");
+ 		})
+ 	});
+ </script>
 </head>
 <body>
+	<div class="show"></div>
+	<div class="num"></div>
  <h3>Add a User!</h3>
- <form action='/result' method='post'>
+ <form action="" id="survey_form">
  	<table>
  		<tr>
  			<td>Name:</td>
- 			<td><input type='text' name='name'></td>
+ 			<td><input type='text' name='name' id="name"></td>
  		</tr>
  		<tr>
  			<td>Favorite Language:</td>
  			<td>
- 				<select name="language">
+ 				<select name="language" id="lang">
  					<option>Node</option>
  					<option>Ruby</option>
  					<option>Python</option>
@@ -23,7 +52,7 @@
  		<tr>
  			<td>Location:</td>
  			<td>
- 				<select name="location">
+ 				<select name="location" id="location">
  					<option>Silicon Valley</option>
  					<option>Seattle</option>
  					<option>Los Angeles</option>
@@ -32,7 +61,7 @@
  		</tr>
  		<tr>
  			<td>Description:</td>
- 			<td><textarea name="description"></textarea></td>
+ 			<td><textarea name="description" id="description"></textarea></td>
  		</tr>
  	</table>
    
